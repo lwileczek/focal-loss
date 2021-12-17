@@ -1,0 +1,43 @@
+---
+Train:
+  reweight: True
+  batch_size: 64
+  learning_rate: 0.000275
+  beta: 0.99998
+  reg: 0.05
+  epochs: 10
+  steps: [6, 8]
+  warmup: 1
+  momentum: 0.85
+
+network:
+  model: ResNet-32 # TwoLayerNet or VanillaCNN or MyModel or ResNet-32
+
+data:
+  imbalance: imbalance # regular or imbalance
+  save_best: False
+
+loss:
+  loss_type: CE  # CE or Focal
+
+# 42%
+# Train:
+#   reweight: True
+#   batch_size: 64
+#   learning_rate: 0.000275
+#   beta: 0.9999999
+#   reg: 0.05
+#   epochs: 10
+#   steps: [6, 8]
+#   warmup: 1
+#   momentum: 0.90 #0.85
+# 
+# network:
+#   model: ResNet-32 # TwoLayerNet or VanillaCNN or MyModel or ResNet-32
+# 
+# data:
+#   imbalance: imbalance # regular or imbalance
+#   save_best: False
+# 
+# loss:
+#   loss_type: Focal  # CE or Focal

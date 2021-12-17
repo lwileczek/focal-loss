@@ -1,0 +1,20 @@
+Train:
+  reweight: True  # for imbalance
+  beta: 0.99998 # for imbalance
+  batch_size: 128
+  learning_rate: 0.003
+  reg: 0.001  # 0.001 did pretty well but with more prams an epochs probably need more?
+  epochs: 4
+  steps: [16, 18]
+  warmup: 2
+  momentum: 0.90
+
+network:
+  model: MyModel # MyModel or ResNet-32
+
+data:
+  imbalance: regular # regular or imbalance
+  save_best: False
+
+loss:
+  loss_type: CE # CE or Focal
