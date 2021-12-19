@@ -1,10 +1,13 @@
 <!doctype html>
+<!-- vim: foldmethod=marker :
+-->
 <html>
+  <!-- {{{ Header  -->
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>Imbalanced Data -- Focal loss</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -12,13 +15,22 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
+  </head><!-- }}} -->
 	<body>
 		<div class="reveal">
 			<div class="slides">
         <section>Imbalanced Datasets</section>
         <section>
-          Often we have data
+          <section>
+            A data set with skewed proporitons of outcomes or classes is considered an imbalanced data set.
+            <div style="width: 100%; text-align:center;">
+              <canvas id="scatterChart" width="700" height="400" style="display: inline;"></canvas>
+            </div>
+          </section>
+          <section>
+           Traditional Models are often biased toward the majority class(es). 
+           <canvas id="trendChart" width="700" height="400"></canvas>
+          </section>
         </section>
 				<section>
           <section>Focal Loss</section>
@@ -31,10 +43,13 @@
 			</div>
 		</div>
 
+    <!-- {{{ Scripts / JS -->
 		<script src="dist/reveal.js"></script>
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"></script>
+		<script src="js/mycharts.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
@@ -46,6 +61,6 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
-		</script>
+		</script><!-- }}} -->
 	</body>
 </html>
