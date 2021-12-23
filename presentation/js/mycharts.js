@@ -105,6 +105,32 @@ const data = {
 
 // }}}
 
+// {{{  Plugins
+const plugin = {
+  id: 'custom_canvas_background_color',
+  beforeDraw: (chart) => {
+    const ctx = chart.canvas.getContext('2d');
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = BACKGROUND_COLORS.orange ;
+    ctx.fillRect(75, chart.height-100, 250, 70);
+    ctx.restore();
+  }
+};
+
+const bigBackground = {
+  id: 'custom_canvas_background_color',
+  beforeDraw: (chart) => {
+    const ctx = chart.canvas.getContext('2d');
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = BACKGROUND_COLORS.blue;
+    ctx.fillRect(25, 65, chart.width * 0.95, chart.height * 0.77);
+    ctx.restore();
+  }
+};
+// }}}
+
 // {{{  Configurations
 const scatterConfig = {
   type: 'scatter',
@@ -126,28 +152,23 @@ const scatterConfig = {
 };
 
 const trendConfig = {
-    data: {
-        datasets: [{
-            type: 'bar',
-            label: 'Bar Dataset',
-            data: [10, 20, 30, 40]
-        }, {
-            type: 'line',
-            label: 'Line Dataset',
-            data: [50, 50, 50, 50],
-        }],
-        labels: ['January', 'February', 'March', 'April']
-    },
-    options: {
+  type: 'scatter',
+  data: data,
+  options: {
     responsive: false,
     width: 700,
     height: 400,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Imbalanced Dataset'
+      },
+    },
+  },
+  plugins: [bigBackground, plugin]
 };
 // }}}
 
@@ -156,6 +177,7 @@ const scatter = document.getElementById('scatterChart').getContext('2d');
 const trend = document.getElementById('trendChart').getContext('2d');
 
 // }}}
+
 
 const c0 = new Chart(scatter, scatterConfig)
 const c1 = new Chart(trend, trendConfig)

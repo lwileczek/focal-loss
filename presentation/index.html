@@ -20,7 +20,7 @@
 		<div class="reveal">
 			<div class="slides">
         <section>Imbalanced Datasets</section>
-        <section>
+        <section> <!--{{{ What is a skewed ds -->
           <section>
             A data set with skewed proporitons of outcomes or classes is considered an imbalanced data set.
             <div style="width: 100%; text-align:center;">
@@ -29,24 +29,67 @@
           </section>
           <section>
            Traditional Models are often biased toward the majority class(es). 
-           <canvas id="trendChart" width="700" height="400"></canvas>
+           <div style="width: 100%; text-align:center;">
+             <canvas id="trendChart" width="700" height="400" style="display: inline;"></canvas>
+           </div>
           </section>
-        </section>
-				<section>
+        </section><!-- }}} -->
+        <section><!--{{{ Focal Loss -->
           <section>Focal Loss</section>
           <section>Something about focal</section>
+          <section>
+              <h2>The Lorenz Equations</h2>
+              \[\begin{aligned}
+              \dot{x} &amp; = \sigma(y-x) \\
+              \dot{y} &amp; = \rho x - y - xz \\
+              \dot{z} &amp; = -\beta z + xy
+              \end{aligned} \]
+          </section>
+          <section>
+            <h2>Documentation</h2>
+            <ul>
+              <li><a href="https://arxiv.org/pdf/1708.02002v2.pdf">Official Paper</a></li>
+              <li><a href="https://github.com/clcarwin/focal_loss_pytorch/blob/master/focalloss.py">Official Code</a></li>
+              <li><a href="https://pytorch.org/vision/stable/_modules/torchvision/ops/focal_loss.html">PyTorch Code</a></li>
+            </ul>
+          </section>
+        </section> <!--}}}-->
+        <!--{{{ Example -->
+        <section>Example</section>
+        <section>
+          <section>Data: CIFAR-10</section>
+          <section>
+            <h2>CIFAR-10</h2>
+
+            <p>CIFAR-10 & CIFAR-100 are labeled image datasets. They can be collected from:
+            <a href="https://www.cs.toronto.edu/~kriz/cifar.html">here</a></p>
+            <p>Papers using these datasets can be seen on <a href="https://paperswithcode.com/dataset/cifar-10">Papers with code</a></p>
+          </section>
+          <section>
+            Download Data
+            <pre><code data-trim data-noescape>
+#!/bin/bash -xe
+
+wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+tar -xvf cifar-10-python.tar.gz
+rm cifar-10-python.tar.gz
+            </code></pre>
+          </section>
         </section>
-				<section>
+        <!--}}}-->
+        <section>End</section>
+        <section>Appendix</section>
+				<section><!--{{{ SMOTE -->
           <section>SMOTE</section>
           <section>Something about smote</section>
-        </section>
+        </section><!--}}}-->
 			</div>
 		</div>
 
     <!-- {{{ Scripts / JS -->
 		<script src="dist/reveal.js"></script>
 		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/math/math.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"></script>
 		<script src="js/mycharts.js"></script>
@@ -59,7 +102,7 @@
         slideNumber: 'c/t',
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMath.KaTeX, RevealHighlight, RevealNotes ]
 			});
 		</script><!-- }}} -->
 	</body>
