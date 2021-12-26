@@ -19,7 +19,7 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-        <section>Imbalanced Datasets</section>
+        <section><h1>Imbalanced Datasets</h1></section>
         <section> <!--{{{ What is a skewed ds -->
           <section>
             A data set with skewed proporitons of outcomes or classes is considered an imbalanced data set.
@@ -35,15 +35,39 @@
           </section>
         </section><!-- }}} -->
         <section><!--{{{ Focal Loss -->
-          <section>Focal Loss</section>
-          <section>Something about focal</section>
+          <section><h1>Focal Loss</h1></section>
           <section>
-              <h2>The Lorenz Equations</h2>
+            <h2>Summary</h2>
+            <p>Focal Loss puts weights on the gradients proportional to the class's representation within the total 
+            data set.</p>
+          </section>
+          <section>
+              <h2>Focal Loss Equation</h2>
               \[\begin{aligned}
-              \dot{x} &amp; = \sigma(y-x) \\
-              \dot{y} &amp; = \rho x - y - xz \\
-              \dot{z} &amp; = -\beta z + xy
+              \textrm{FL}(p_t) &amp; = -\alpha_t(1-p_t)^{\gamma}log(p_t)
               \end{aligned} \]
+              Where, $\alpha_t$ is the weight for class $t$, $p_t$ is the model’s estimated probability for the class,
+              and $\gamma\geq 0$ is a tunable focusing parameter.
+          </section>
+          <section>
+              <h3>Code Implementation</h3>
+              <pre><code data-line-numbers>class FocalLoss(nn.Module):
+    def __init__(self, weight=None, gamma=0.):
+        super(FocalLoss, self).__init__()
+        assert gamma >= 0
+        self.gamma = gamma
+        self.weight = weight
+
+    def forward(self, preds, true_labels):
+        loss = None
+        N, _ = preds.shape
+        log_probs = F.log_softmax(preds)
+        log_probs = log_probs[np.arange(N), true_labels]
+        probs = log_probs.data.exp()
+        loss = -1 * self.weight[true_labels]*(1-probs)**self.gamma * log_probs
+
+        return loss.sum()
+              </code></pre>
           </section>
           <section>
             <h2>Documentation</h2>
@@ -55,7 +79,7 @@
           </section>
         </section> <!--}}}-->
         <!--{{{ Example -->
-        <section>Example</section>
+        <section><h1>Example</h1></section>
         <section>
           <section>Data: CIFAR-10</section>
           <section>
@@ -74,6 +98,9 @@ wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 tar -xvf cifar-10-python.tar.gz
 rm cifar-10-python.tar.gz
             </code></pre>
+          </section>
+          <section>
+            model: resnet-50
           </section>
         </section>
         <!--}}}-->
