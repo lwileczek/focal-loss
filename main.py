@@ -13,7 +13,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 
-from models import TwoLayerNet, VanillaCNN, MyModel, resnet32
+from models import MyModel, resnet32
 from losses import FocalLoss, reweight
 
 parser = argparse.ArgumentParser(description='CS7643 Assignment-2 Part 2')
@@ -39,12 +39,10 @@ class AverageMeter(object):
 
 def accuracy(output, target):
     """Computes the precision@k for the specified values of k"""
+    
     batch_size = target.shape[0]
-
     _, pred = torch.max(output, dim=-1)
-
     correct = pred.eq(target).sum() * 1.0
-
     acc = correct / batch_size
 
     return acc
@@ -77,7 +75,7 @@ def train(epoch, data_loader, model, optimizer, criterion):
         acc.update(batch_acc, out.shape[0])
 
         iter_time.update(time.time() - start)
-        if idx % 50 == 0:
+        if idx % 64 == 0:
             print(('Epoch: [{0}][{1}/{2}]\t'
                    'Time {iter_time.val:.3f} ({iter_time.avg:.3f})\t'
                    'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
