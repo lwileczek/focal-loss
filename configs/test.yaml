@@ -1,0 +1,21 @@
+Train:
+  reweight: True
+  batch_size: 256
+  learning_rate: 0.000275
+  beta: 0.99998
+  reg: 0.05
+  epochs: 5
+  steps: [6, 8]
+  warmup: 1
+  momentum: 0.85
+  gamma: 1
+
+network:
+  model: MyModel # MyModel or ResNet-32
+
+data:
+  imbalance: imbalance # regular or imbalance
+  save_best: False
+
+loss:
+  loss_type: Focal # CE or Focal

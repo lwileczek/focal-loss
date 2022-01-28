@@ -9,6 +9,7 @@ Train:
   steps: [6, 8]
   warmup: 1
   momentum: 0.85
+  gamma: 1
 
 network:
   model: ResNet-32 # TwoLayerNet or VanillaCNN or MyModel or ResNet-32
@@ -18,7 +19,7 @@ data:
   save_best: False
 
 loss:
-  loss_type: CE  # CE or Focal
+  loss_type: Focal # CE or Focal
 
 # 42%
 # Train:

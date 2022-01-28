@@ -169,6 +169,7 @@ def main():
                                          transform=transform_train,
                                      )
         cls_num_list = train_dataset.get_cls_num_list()
+        print("Class Number List:", cls_num_list)
         if args.reweight:
             per_cls_weights = reweight(cls_num_list, beta=args.beta)
             if torch.cuda.is_available():
