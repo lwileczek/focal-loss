@@ -62,12 +62,6 @@ def train(epoch, data_loader, model, optimizer, criterion):
             data = data.cuda()
             target = target.cuda()
 
-        #############################################################################
-        #       Complete the body of training loop                                  #
-        #       1. forward data batch to the model                                  #
-        #       2. Compute batch loss                                               #
-        #       3. Compute gradients and update model parameters                    #
-        #############################################################################
         # 1. Forward Pass
         out = model(data)
         # 2. Compute Loss
@@ -76,9 +70,6 @@ def train(epoch, data_loader, model, optimizer, criterion):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-        #############################################################################
-        #                              END OF YOUR CODE                             #
-        #############################################################################
 
         batch_acc = accuracy(out, target)
 
@@ -108,16 +99,9 @@ def validate(epoch, val_loader, model, criterion):
         if torch.cuda.is_available():
             data = data.cuda()
             target = target.cuda()
-        #############################################################################
-        #       Complete the body of training loop                                  #
-        #       HINT: torch.no_grad()                                               #
-        #############################################################################
         with torch.no_grad():
             out = model(data)
             loss = criterion(out, target)
-        #############################################################################
-        #                              END OF YOUR CODE                             #
-        #############################################################################
 
         batch_acc = accuracy(out, target)
 
@@ -201,14 +185,13 @@ def main():
     test_loader = torch.utils.data.DataLoader(
         test_dataset, batch_size=100, shuffle=False, num_workers=2)
 
-    if args.model == 'TwoLayerNet':
-        model = TwoLayerNet(3072, 256, 10)
-    elif args.model == 'VanillaCNN':
-        model = VanillaCNN()
-    elif args.model == 'MyModel':
+    if args.model == 'MyModel':
         model = MyModel()
     elif args.model == 'ResNet-32':
         model = resnet32()
+    else:
+        print("Unknown model requested")
+        exit(1)
     print(model)
     if torch.cuda.is_available():
         model = model.cuda()
@@ -216,7 +199,11 @@ def main():
     if args.loss_type == "CE":
         criterion = nn.CrossEntropyLoss()
     else:
-        criterion = FocalLoss(weight=per_cls_weights, gamma=1)
+        if args.gamma is None:
+            focal_gamma = 1
+        else:
+            focal_gamma = args.gamma
+        criterion = FocalLoss(weight=per_cls_weights, gamma=focal_gamma)
 
     optimizer = torch.optim.SGD(model.parameters(), args.learning_rate,
                                 momentum=args.momentum,
@@ -245,8 +232,6 @@ def main():
 
     if args.save_best:
         torch.save(best_model.state_dict(), './checkpoints/' + args.model.lower() + '.pth')
-
-
 
 
 

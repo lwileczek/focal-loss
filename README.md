@@ -19,3 +19,6 @@ Edit the YAML file in `./config` to edit the model and loss function.
 
  - Official Code: https://paperswithcode.com/method/focal-loss
 
+## Credits
+
+Most of the code was taken from my Deep learning class from Georgia Tech taught by Zsolt Kira: https://faculty.cc.gatech.edu/~zk15/
